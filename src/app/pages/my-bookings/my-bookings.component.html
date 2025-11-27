@@ -3,52 +3,56 @@
 
   <!-- Loading -->
   @if(isLoading){
-    <div class="text-gray-500">Loading bookings...</div>
+  <div class="text-gray-500">Loading bookings...</div>
   }
 
   <!-- Error -->
   @if(errorMessage){
-    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded mb-4">
-      {{ errorMessage }}
-    </div>
+  <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded mb-4">
+    {{ errorMessage }}
+  </div>
   }
 
   <!-- Bookings Table -->
   @if(!isLoading && bookings.length > 0){
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-100">
-          <tr>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Car</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Start Date</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">End Date</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Total Price</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-          @for(booking of bookings; track booking.id){
-          <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 whitespace-nowrap">{{ booking.car?.brand }} {{ booking.car?.model }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ booking.startDate | date:'mediumDate' }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ booking.endDate | date:'mediumDate' }}</td>
-            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-800">
-              {{ BookingStatus[booking.status] }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap font-semibold text-primary-600">
-              {{ booking.estimatedPrice | currency:'MYR' }}
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+  <div class="overflow-x-auto bg-white rounded-lg shadow">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Car</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Start Date</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">End Date</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Total Price</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        @for(booking of bookings; track booking.id){
+        <tr class="hover:bg-gray-50 transition">
+          <td class="px-6 py-4 whitespace-nowrap">{{ booking.car?.brand }} {{ booking.car?.model }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ booking.startDate | date:'dd MMM yyyy' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ booking.endDate | date:'dd MMM yyyy' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap font-semibold" [ngClass]="{
+    'text-green-600': BookingStatus[booking.status] === 'Approved',
+    'text-red-600': BookingStatus[booking.status] === 'Rejected',
+    'text-gray-800': BookingStatus[booking.status] === 'Pending'
+  }">
+            {{ BookingStatus[booking.status] }}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap font-semibold text-primary-600">
+            {{ booking.estimatedPrice | currency:'MYR' }}
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
   }
 
   <!-- No bookings -->
   @if(!isLoading && bookings.length === 0){
-    <div class="text-gray-500 mt-4">
-      You have no bookings yet.
-    </div>
+  <div class="text-gray-500 mt-4">
+    You have no bookings yet.
+  </div>
   }
 </div>
