@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "build:render": "ng build --configuration production && copy src\\_redirects dist\\car-rental-angular\\_redirects",
+    "build:render": "ng build --configuration production && cp src/_redirects dist/car-rental-angular/_redirects",
     "test": "ng test"
   },
   "prettier": {
