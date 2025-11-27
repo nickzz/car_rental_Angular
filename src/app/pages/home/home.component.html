@@ -1,0 +1,91 @@
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 text-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 text-center">
+
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
+      Rent Your Dream Car Today
+    </h1>
+
+    <p class="text-xl md:text-2xl text-white/85 mb-10">
+      Premium cars, unbeatable prices, unforgettable journeys.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a routerLink="/cars" class="btn-hero-primary">
+        Browse Cars
+      </a>
+      <a routerLink="/register" class="btn-hero-secondary">
+        Sign Up Now
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Wave -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
+      <path fill="white" fill-opacity="0.9"
+        d="M0,64L60,74.7C120,85,240,107,360,112C480,117,600,107,720,90.7C840,75,960,53,1080,48C1200,43,1320,53,1380,58.7L1440,64V120H0Z" />
+    </svg>
+  </div>
+</section>
+
+
+<!-- Features Section -->
+<section class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <h2 class="section-title">Why Choose Us?</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      @for (feature of features; track feature.title) {
+      <div class="card-feature">
+        <div class="icon-feature" [innerHTML]="feature.icon"></div>
+        <h3 class="title-feature">{{ feature.title }}</h3>
+        <p class="text-gray-600">{{ feature.description }}</p>
+      </div>
+      }
+    </div>
+
+  </div>
+</section>
+
+
+<!-- How It Works Section -->
+<section class="py-24 bg-gradient-to-b from-purple-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <h2 class="section-title">How It Works</h2>
+
+    <div class="grid md:grid-cols-4 gap-10">
+      @for (step of steps; track step.number) {
+      <div class="step-card">
+        <div class="step-number">{{ step.number }}</div>
+        <h3 class="font-semibold text-lg mb-1">{{ step.title }}</h3>
+        <p class="text-gray-600">{{ step.description }}</p>
+      </div>
+      }
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CTA Section -->
+<section class="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+
+    <h2 class="text-4xl font-extrabold mb-5 drop-shadow-lg">
+      Ready to Hit the Road?
+    </h2>
+
+    <p class="text-lg text-white/90 mb-8">
+      Join thousands of customers who trust us every day.
+    </p>
+
+    <a routerLink="/register" class="btn-cta">
+      Get Started
+    </a>
+
+  </div>
+</section>

@@ -1,0 +1,154 @@
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Manage Cars</h1>
+
+  <!-- Create Car Button -->
+  <button
+    (click)="openCreateModal()"
+    class="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+  >
+    + Create New Car
+  </button>
+
+  <!-- Success/Error Messages -->
+  @if (successMessage) {
+    <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+      {{ successMessage }}
+    </div>
+  }
+  @if (errorMessage) {
+    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+      {{ errorMessage }}
+    </div>
+  }
+
+  <!-- Loading State -->
+  @if (loading) {
+    <div class="text-center text-gray-500 py-8">
+      Loading cars...
+    </div>
+  }
+
+  <!-- Cars Table -->
+  @if (!loading) {
+    <div class="bg-white rounded-lg shadow overflow-x-auto">
+      @if (cars.length === 0) {
+        <div class="p-6 text-center text-gray-500">
+          No cars found.
+        </div>
+      }
+
+      @if (cars.length > 0) {
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Brand</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Model</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Type</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Plate No</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Colour</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price/Day</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price/Week</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price/Month</th>
+              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            @for (car of cars; track car.id) {
+              <tr class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-sm text-gray-900">{{ car.brand }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ car.model }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ car.type }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ car.plateNo }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ car.colour }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">RM {{ car.pricePerDay }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">RM {{ car.pricePerWeek }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">RM {{ car.pricePerMonth }}</td>
+                <td class="px-6 py-4 text-sm space-x-2">
+                  <button
+                    (click)="openUpdateModal(car)"
+                    class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Update
+                  </button>
+                  <button
+                    (click)="deleteCar(car)"
+                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+
+  <!-- Car Modal (Create/Update) -->
+  @if (showCarModal) {
+    <div class="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
+      <div class="rounded-lg shadow-lg p-6 w-full max-w-2xl bg-white/90 backdrop-blur-md">
+        <h2 class="text-xl font-bold mb-4">{{ selectedCar ? 'Update Car' : 'Create New Car' }}</h2>
+
+        <form [formGroup]="updateForm" (ngSubmit)="submitCar()" class="space-y-4">
+          <!-- Grid Inputs -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Brand</label>
+              <input formControlName="brand" type="text" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Model</label>
+              <input formControlName="model" type="text" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Type</label>
+              <input formControlName="type" type="text" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Plate No</label>
+              <input formControlName="plateNo" type="text" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Colour</label>
+              <input formControlName="colour" type="text" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+          </div>
+
+          <!-- Prices -->
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Price/Day</label>
+              <input formControlName="pricePerDay" type="number" step="0.01" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Price/Week</label>
+              <input formControlName="pricePerWeek" type="number" step="0.01" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Price/Month</label>
+              <input formControlName="pricePerMonth" type="number" step="0.01" class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+          </div>
+
+          <!-- Modal Messages -->
+          @if (successMessage) {
+            <div class="p-3 bg-green-100 text-green-700 rounded text-sm">{{ successMessage }}</div>
+          }
+          @if (errorMessage) {
+            <div class="p-3 bg-red-100 text-red-700 rounded text-sm">{{ errorMessage }}</div>
+          }
+
+          <!-- Buttons -->
+          <div class="flex justify-end gap-2 mt-4">
+            <button type="button" (click)="closeCarModal()" class="px-4 py-2 border rounded-lg hover:bg-gray-50 transition">Cancel</button>
+            <button type="submit" [disabled]="updateForm.invalid || submitLoading" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 transition">
+              {{ submitLoading ? (selectedCar ? 'Updating...' : 'Creating...') : (selectedCar ? 'Save Changes' : 'Create Car') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

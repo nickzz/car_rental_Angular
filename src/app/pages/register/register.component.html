@@ -1,0 +1,139 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-2xl w-full space-y-8 bg-white rounded-2xl shadow-2xl p-8">
+
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="text-3xl font-extrabold text-gray-900">
+        Create your account
+      </h2>
+      <p class="mt-2 text-sm text-gray-500">
+        Join us and start renting cars today
+      </p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      
+      <!-- Error -->
+      @if (errorMessage) {
+      <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg shadow-sm">
+        {{ errorMessage }}
+      </div>
+      }
+
+      <!-- Success -->
+      @if (successMessage) {
+      <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg shadow-sm">
+        {{ successMessage }}
+      </div>
+      }
+
+      <!-- Form Grid -->
+      <div class="grid md:grid-cols-2 gap-5">
+
+        <!-- First Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+          <input type="text" formControlName="firstName" placeholder="John"
+            class="input-modern" />
+          @if (registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched) {
+            <p class="error-text">First name is required (min 2 characters)</p>
+          }
+        </div>
+
+        <!-- Last Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+          <input type="text" formControlName="lastName" placeholder="Doe"
+            class="input-modern" />
+          @if (registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched) {
+            <p class="error-text">Last name is required (min 2 characters)</p>
+          }
+        </div>
+
+        <!-- DOB -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+          <input type="date" formControlName="dateOfBirth" [max]="maxDate"
+            class="input-modern" />
+          @if (registerForm.get('dateOfBirth')?.invalid && registerForm.get('dateOfBirth')?.touched) {
+            <p class="error-text">Must be at least 18 years old</p>
+          }
+        </div>
+
+        <!-- NRIC -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">NRIC</label>
+          <input type="text" formControlName="nric" placeholder="900101-01-1234"
+            class="input-modern" />
+          @if (registerForm.get('nric')?.invalid && registerForm.get('nric')?.touched) {
+            <p class="error-text">Format: XXXXXX-XX-XXXX</p>
+          }
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" formControlName="email" placeholder="john@example.com"
+            class="input-modern" />
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <p class="error-text">Valid email required</p>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+          <input type="tel" formControlName="phoneNumber" placeholder="0123456789"
+            class="input-modern" />
+          @if (registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched) {
+            <p class="error-text">Valid Malaysian phone number required</p>
+          }
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+        <textarea rows="3" formControlName="address"
+          placeholder="123 Main Street, City, State"
+          class="input-modern"></textarea>
+        @if (registerForm.get('address')?.invalid && registerForm.get('address')?.touched) {
+          <p class="error-text">Address is required (min 10 characters)</p>
+        }
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+        <input type="password" formControlName="password" placeholder="Min 8 characters"
+          class="input-modern" />
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+          <p class="error-text">
+            Password must include uppercase, lowercase, number & special character
+          </p>
+        }
+      </div>
+
+      <!-- Button -->
+      <button type="submit"
+        [disabled]="!registerForm.valid || loading"
+        class="btn-modern">
+        @if (loading) {
+          <span class="spinner"></span>
+        } @else {
+          Create Account
+        }
+      </button>
+
+      <!-- Footer -->
+      <p class="text-center text-sm text-gray-600">
+        Already have an account?
+        <a routerLink="/login"
+           class="font-medium text-blue-600 hover:text-purple-600 transition">
+          Sign in
+        </a>
+      </p>
+    </form>
+
+  </div>
+</div>

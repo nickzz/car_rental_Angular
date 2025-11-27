@@ -1,0 +1,10 @@
+.admin-cars {
+  /* Table and modal styles using Tailwind; minimal custom styles needed */
+}
+
+/* Optional: Add smooth transitions for modal */
+@media (prefers-reduced-motion: no-preference) {
+  .admin-cars {
+    transition: opacity 0.2s ease;
+  }
+}

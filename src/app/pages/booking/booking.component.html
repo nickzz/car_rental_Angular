@@ -1,0 +1,108 @@
+<div class="max-w-4xl mx-auto p-6 space-y-8">
+
+  <!-- Error Message -->
+  @if (errorMessage) {
+  <div class="bg-red-100 text-red-700 px-4 py-3 rounded shadow">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <!-- STEP 1: Search Form -->
+  <!-- STEP 1: Search Form -->
+  @if (step === 1) {
+  <div class="bg-white shadow-lg rounded-2xl p-6 space-y-4">
+    <h2 class="text-2xl font-bold text-gray-900">Start Your Booking</h2>
+    <p class="text-gray-500 text-sm">Select dates and add notes to search available cars.</p>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- Pick-up Date -->
+      <div class="flex flex-col">
+        <label class="text-sm font-medium text-gray-700 mb-1">Pick-up Date</label>
+        <input type="date" [(ngModel)]="startDate" class="input-modern" />
+      </div>
+
+      <!-- Return Date -->
+      <div class="flex flex-col">
+        <label class="text-sm font-medium text-gray-700 mb-1">Return Date</label>
+        <input type="date" [(ngModel)]="endDate" class="input-modern" />
+      </div>
+
+      <!-- Notes -->
+      <div class="flex flex-col">
+        <label class="text-sm font-medium text-gray-700 mb-1">Notes (Pick-up Location/Walk-in)</label>
+        <input type="text" placeholder="Pick-up location / Walk-in" [(ngModel)]="notes" class="input-modern" />
+      </div>
+    </div>
+
+    <button (click)="searchCars()" [disabled]="isLoading" class="btn-modern w-full">
+      @if (isLoading) { Searching... } @else { Search Cars }
+    </button>
+  </div>
+  }
+
+
+  <!-- STEP 2: Available Cars -->
+  @if (step === 2) {
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-900">Available Cars</h2>
+    <button (click)="goBackToSearch()" class="text-blue-600 hover:text-purple-600 transition">
+      ← Back
+    </button>
+  </div>
+
+  @if (availableCars.length === 0) {
+  <p class="text-gray-500 text-center py-8">No cars available for selected dates.</p>
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    @for (car of availableCars; track car.id) {
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition flex flex-col">
+      <img [src]="car.imageUrl" class="h-40 w-full object-cover rounded-t-2xl">
+
+      <div class="p-4 flex flex-col flex-1">
+        <h3 class="text-lg font-semibold text-gray-900">{{ car.brand }} {{ car.model }}</h3>
+        <p class="text-sm text-gray-500">{{ car.type }}</p>
+        <p class="mt-2 font-bold text-primary-600">RM {{ car.pricePerDay }}/day</p>
+
+        <button (click)="selectCar(car)" class="mt-auto btn-modern bg-green-500 hover:bg-green-600 text-white">
+          Book
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- STEP 3: Confirm Booking -->
+  @if (step === 3) {
+  <div class="bg-white shadow-lg rounded-2xl p-6 space-y-4">
+    <h2 class="text-2xl font-bold text-gray-900">Confirm Your Booking</h2>
+    <p class="text-gray-500">Please review your booking details before confirming.</p>
+
+    <div class="space-y-2 text-gray-700">
+      <p><strong>Pick-up:</strong> {{ startDate }}</p>
+      <p><strong>Return:</strong> {{ endDate }}</p>
+      <p><strong>Days:</strong> {{ totalDays }}</p>
+      <p><strong>Notes:</strong> {{ notes }}</p>
+
+      <hr class="my-2">
+
+      <p><strong>Car:</strong> {{ selectedCar.brand }} {{ selectedCar.model }}</p>
+      <p><strong>Price/Day:</strong> RM {{ selectedCar.pricePerDay }}</p>
+
+      <p class="text-xl font-bold text-green-600">
+        Total: RM {{ totalPrice }}
+      </p>
+    </div>
+
+    <div class="flex gap-4 mt-4">
+      <button (click)="goBackToCars()" class="flex-1 btn-modern bg-gray-400 hover:bg-gray-500">
+        ← Back
+      </button>
+      <button (click)="confirmBooking()" [disabled]="isLoading" class="flex-1 btn-modern bg-blue-600 hover:bg-blue-700">
+        @if (isLoading) { Processing... } @else { Confirm & Pay }
+      </button>
+    </div>
+  </div>
+  }
+</div>

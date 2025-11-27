@@ -1,0 +1,73 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-2xl p-8">
+    <div class="text-center">
+      <h2 class="text-3xl font-extrabold text-gray-900">
+        Sign in to your account
+      </h2>
+      <p class="mt-2 text-sm text-gray-500">
+        Welcome back! Please enter your details.
+      </p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-8 space-y-6">
+      
+      <!-- Error message -->
+      @if (errorMessage) {
+      <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg shadow-sm">
+        {{ errorMessage }}
+      </div>
+      }
+
+      <!-- Input fields -->
+      <div class="space-y-4">
+        <div>
+          <label for="email" class="sr-only">Email address</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            required
+            placeholder="Email address"
+            class="block w-full px-4 py-3 text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200"
+          />
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            required
+            placeholder="Password"
+            class="block w-full px-4 py-3 text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200"
+          />
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <div>
+        <button
+          type="submit"
+          [disabled]="!loginForm.valid || loading"
+          class="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 focus:outline-none focus:ring-4 focus:ring-purple-200 transition duration-300 disabled:opacity-50"
+        >
+          @if (loading) {
+            <span class="spinner"></span>
+          } @else {
+            Sign in
+          }
+        </button>
+      </div>
+
+      <!-- Sign up link -->
+      <div class="text-center">
+        <p class="text-sm text-gray-600">
+          Don't have an account?
+          <a routerLink="/register" class="font-medium text-blue-600 hover:text-purple-600 transition duration-200">
+            Sign up
+          </a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

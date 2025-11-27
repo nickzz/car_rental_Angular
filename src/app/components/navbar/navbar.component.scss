@@ -1,0 +1,144 @@
+:host {
+	display: block;
+}
+
+.user-avatar {
+	letter-spacing: 0.02em;
+}
+
+.user-menu {
+	min-width: 11rem;
+	border-radius: 0.5rem;
+}
+
+/* small shadow and transition for menus */
+.user-menu {
+	transition: transform 0.12s ease, opacity 0.12s ease;
+}
+
+@media (max-width: 768px) {
+	.user-avatar {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+}
+
+/* Navigation */
+nav {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Links */
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #2563eb;
+  }
+}
+
+/* Primary button */
+.btn-nav-primary {
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Avatar */
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* Dropdown menu */
+.dropdown-panel {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 12rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+.dropdown-danger {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  color: #dc2626;
+  font-size: 0.875rem;
+
+  &:hover {
+    background: #fee2e2;
+  }
+}
+
+/* Mobile */
+.mobile-link {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+
+  &:hover {
+    color: #2563eb;
+  }
+}
+
+.btn-mobile-primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+  color: white;
+  font-weight: 600;
+}
+
+.btn-mobile-danger {
+  width: 100%;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: #dc2626;
+  }
+}
+
+

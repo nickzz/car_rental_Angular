@@ -1,0 +1,47 @@
+@use "tailwindcss";
+@plugin "daisyui";
+
+/* =======================
+   FORM CONTROLS
+======================= */
+
+.input-modern {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-200 text-sm placeholder-gray-400;
+}
+
+.error-text {
+  @apply mt-1 text-sm text-red-600;
+}
+
+.btn-modern {
+  @apply w-full flex justify-center py-3 px-4 rounded-xl text-sm font-medium text-white
+         bg-gradient-to-r from-blue-500 to-purple-500
+         hover:from-purple-500 hover:to-blue-500
+         focus:outline-none focus:ring-4 focus:ring-purple-200
+         transition duration-300 disabled:opacity-50;
+}
+
+/* =======================
+   GLOBAL BUTTONS
+======================= */
+
+.btn-primary {
+  @apply px-5 py-2 rounded-xl text-sm font-semibold text-white
+         bg-gradient-to-r from-blue-500 to-purple-500
+         hover:opacity-90 transition;
+}
+
+.btn-secondary {
+  @apply px-5 py-2 rounded-xl text-sm font-semibold text-blue-600
+         bg-white border hover:bg-blue-50 transition;
+}
+
+/* =======================
+   TYPOGRAPHY
+======================= */
+
+.section-title {
+  @apply text-4xl font-bold text-center mb-16;
+}

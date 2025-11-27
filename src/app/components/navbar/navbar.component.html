@@ -1,0 +1,139 @@
+<nav class="fixed w-full top-0 z-50 backdrop-blur-lg bg-white/80 shadow-md border-b border-white/40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center gap-2 font-bold text-xl text-gray-900">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span class="tracking-wide">Car Rental</span>
+      </a>
+
+      <!-- Desktop -->
+      <div class="hidden md:flex items-center gap-6">
+
+        <a routerLink="/cars" class="nav-link">Browse Cars</a>
+
+        @if (!isAuthenticated) {
+          <a routerLink="/login" class="text-sm font-medium text-gray-700 hover:text-blue-600 transition">
+            Sign In
+          </a>
+          <a routerLink="/register" class="btn-nav-primary">
+            Sign Up
+          </a>
+        }
+
+        @if (isAuthenticated) {
+          <div class="relative">
+            <button (click)="toggleUserMenu()" class="flex items-center gap-2 focus:outline-none">
+              <div class="user-avatar bg-gradient-to-r from-blue-500 to-purple-500">
+                {{ getUserInitials() }}
+              </div>
+              <span class="font-medium text-gray-700">{{ currentUser?.name }}</span>
+              <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.293l3.71-4.06a.75.75 0 111.12 1.0l-4.25 4.66a.75.75 0 01-1.12 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd" />
+              </svg>
+            </button>
+
+            @if (userMenuOpen) {
+              <div class="dropdown-panel">
+
+                <a routerLink="/profile" (click)="userMenuOpen=false" class="dropdown-item">
+                  Profile
+                </a>
+
+                @if (isCustomer) {
+                  <a routerLink="/dashboard" (click)="userMenuOpen=false" class="dropdown-item">
+                    Dashboard
+                  </a>
+                  <a routerLink="/my-bookings" (click)="userMenuOpen=false" class="dropdown-item">
+                    My Bookings
+                  </a>
+                }
+
+                @if (isAdmin) {
+                  <a routerLink="/admin/dashboard" (click)="userMenuOpen=false" class="dropdown-item">
+                    Dashboard
+                  </a>
+                  <a routerLink="/admin/cars" (click)="userMenuOpen=false" class="dropdown-item">
+                    Manage Cars
+                  </a>
+                }
+
+                <button (click)="logout()" class="dropdown-danger">
+                  Logout
+                </button>
+
+              </div>
+            }
+          </div>
+        }
+
+      </div>
+
+      <!-- Mobile -->
+      <button (click)="toggleMobileMenu()" class="md:hidden text-gray-700 hover:text-blue-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  @if (mobileMenuOpen) {
+    <div class="md:hidden bg-white shadow-lg border-t animate-fadeIn">
+      <div class="px-4 py-4 space-y-4">
+
+        <a routerLink="/cars" (click)="closeMobileMenu()" class="mobile-link">
+          Browse Cars
+        </a>
+
+        @if (!isAuthenticated) {
+          <a routerLink="/login" (click)="closeMobileMenu()" class="mobile-link">
+            Sign In
+          </a>
+          <a routerLink="/register" (click)="closeMobileMenu()" class="btn-mobile-primary">
+            Sign Up
+          </a>
+        }
+
+        @if (isAuthenticated) {
+          <div class="border-t pt-4">
+
+            <div class="flex items-center gap-3 mb-4">
+              <div class="user-avatar bg-gradient-to-r from-blue-500 to-purple-500">
+                {{ getUserInitials() }}
+              </div>
+              <div>
+                <p class="font-medium text-gray-800">{{ currentUser?.name }}</p>
+                <a routerLink="/profile" (click)="closeMobileMenu()" class="text-sm text-gray-600 hover:text-blue-600">
+                  View profile
+                </a>
+              </div>
+            </div>
+
+            @if (isAdmin) {
+              <a routerLink="/admin/cars" (click)="closeMobileMenu()" class="mobile-link">
+                Manage Cars
+              </a>
+            }
+
+            <button (click)="logout()" class="btn-mobile-danger">
+              Logout
+            </button>
+
+          </div>
+        }
+      </div>
+    </div>
+  }
+</nav>
+
+<div class="h-16"></div>
