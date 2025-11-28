@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../environments/environment';
+// import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
+
 import { 
   ApiResponse, 
   LoginDto, 
@@ -15,6 +17,7 @@ import {
   providedIn: 'root'
 })
 export class AuthService {
+  // private readonly API_URL = `${environment.apiUrl}/users`;
   private readonly API_URL = `${environment.apiUrl}/users`;
   private readonly TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
